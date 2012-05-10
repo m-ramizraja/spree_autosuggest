@@ -15,9 +15,12 @@ class @Autosuggest
     @search_field.autocomplete(
       @settings,
       source: (request, response) =>
-        @finder(request, response))
-      .bind "keydown.autocomplete", (event) =>
-        @fire_keybinds(event)
+        @finder(request, response)
+      select: (event, ui) =>
+        location.href = ui.item.url
+      )
+      #.bind "keydown.autocomplete", (event) =>
+      #  @fire_keybinds(event)
 
   # TODO: rewrite
   fire_keybinds: (event) ->
@@ -46,16 +49,16 @@ class @Autosuggest
   filter_terms: (array, term) ->
       matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i")
       $.grep array, (value) =>
-        source = value.label or value.value or value
-
+        source = value.keywords or value.value or value
+				
         return true if matcher.test(source)
         if @settings.keyswitch
           matcher.test(@keyswitch(source))
 
   extension_methods: ->
     _renderItem: (ul, item) ->
-        item.label = item.label.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "gi"), "<strong>$1</strong>")
-        $("<li></li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo ul
+        item.keywords = item.keywords.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "gi"), "<strong>$1</strong>")
+        $("<li></li>").data("item.autocomplete", item).append("<a href=" + item.url + ">" + item.keywords + "</a>").appendTo ul
 
   keyswitch: (str) ->
     ru = "йцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ"

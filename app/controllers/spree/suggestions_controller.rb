@@ -4,7 +4,7 @@ class Spree::SuggestionsController < Spree::BaseController
     suggestions = Spree::Suggestion.relevant(params['term'])
 
     if request.xhr?
-      render :json => suggestions.map(&:keywords)
+      render :json => suggestions.collect{|s| {:keywords => s.keywords, :url => eval(s.data)[:url]}}
     else
       render_404
     end

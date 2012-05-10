@@ -4,7 +4,7 @@ class Spree::Suggestion < ActiveRecord::Base
   def self.relevant(term)
     config = Spree::Autosuggest::Config
 
-    select(:keywords).
+    select([:keywords, :data]).
       where("count >= ?", config.min_count).
       where("items_found != 0").
       where("keywords LIKE ? OR keywords LIKE ?", term + '%', KeySwitcher.switch(term) + '%').
