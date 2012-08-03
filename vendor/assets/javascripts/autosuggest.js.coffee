@@ -47,7 +47,7 @@ class @Autosuggest
     result
 
   filter_terms: (array, term) ->
-      matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i")
+      matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(term), "i")
       $.grep array, (value) =>
         source = value.keywords or value.value or value
 				
@@ -57,7 +57,11 @@ class @Autosuggest
 
   extension_methods: ->
     _renderItem: (ul, item) ->
-        item.keywords = item.keywords.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "gi"), "<strong>$1</strong>")
+        if item.url is ""
+        	item.url = '/products?utf8=✓&keywords='+item.keywords
+        	
+        item.keywords = item.keywords.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "i"), "<strong>$1</strong>")
+        
         $("<li></li>").data("item.autocomplete", item).append("<a href=" + item.url + ">" + item.keywords + "</a>").appendTo ul
 
   keyswitch: (str) ->
