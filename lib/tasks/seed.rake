@@ -1,7 +1,7 @@
 namespace :spree_autosuggest do
   task :seed => :environment do
     # all taxons with more than two words
-    Spree::Taxon.find(:all, :conditions => ["parent_id is not ?", nil]).each do |taxon|
+    Spree::Taxon.find(:all, :conditions => ["parent_id is not ? and parent_id <> ?", nil, 1]).each do |taxon|
       searcher = Spree::Config.searcher_class.new({:taxon => taxon.id})
       query = Spree::Suggestion.find_or_initialize_by_keywords(taxon.name)
       query.items_found = searcher.retrieve_products.size
