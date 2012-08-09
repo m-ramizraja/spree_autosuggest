@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_autosuggest'
-  s.version     = '1.0.3'
+  s.version     = '1.0.4'
   s.summary     = 'Search suggestions for Spree'
   s.description = 'Search suggestions for Spree'
   s.required_ruby_version = '>= 1.8.7'
