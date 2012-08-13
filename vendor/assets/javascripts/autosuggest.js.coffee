@@ -4,7 +4,7 @@ class @Autosuggest
     return if @search_field.length == 0
 
     @settings =
-      from_db: 15
+      from_db: 45
       to_display: 5
       keyswitch: true
     @settings = $.extend @settings, options
