@@ -11,8 +11,8 @@ namespace :spree_autosuggest do
       query.save
     end
 
-    # all product names
-    Spree::Product.all.each do |product|
+    # all active and available product names
+    Spree::Product.active.available.each do |product|
       query = Spree::Suggestion.find_or_initialize_by_keywords(product.name)
       query.keywords = product.name # keep the case of keywords same with current
       query.items_found = 1
