@@ -1,0 +1,48 @@
+<div class="toolbar" data-hook="toolbar">
+  Total: <%= @suggestions.total_count %>
+</div>
+
+<h1>Listing Suggestions</h1>
+
+<table class="index" id="listing_suggestions">
+  <tr>
+    <th>ID</th>
+    <th>Keywords</th>
+    <th>Count</th>
+    <th>Items Found</th>
+    <th>Data</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th>Action</th>
+  </tr>
+
+<% @suggestions.each do |suggestion| %>
+  <tr>
+    <td><%= suggestion.id %></td>
+    <td><%= suggestion.keywords %></td>
+    <td><%= suggestion.count %></td>
+    <td><%= suggestion.items_found %></td>
+    <td><%= suggestion.data %></td>
+    <td><%= suggestion.created_at %></td>
+    <td><%= suggestion.updated_at %></td>
+    <td><%= link_to 'Destroy', admin_suggestion_path(suggestion), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @suggestions %> 
+
+<% content_for :sidebar do %>
+  <div class="box" data-hook="admin_suggestions_index_search">
+    <h3><%= t(:search) %></h3>
+    <%= form_for [:admin, @search] do |f| %>
+      <p>
+        Keywords<br />
+        <%= f.text_field :keywords_contains, :size =>18 %>
+      </p>
+      <div data-hook="admin_suggestions_index_search_buttons">
+        <p><%= button t(:search) %></p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
