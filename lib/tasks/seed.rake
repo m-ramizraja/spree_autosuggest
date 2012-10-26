@@ -21,6 +21,16 @@ namespace :spree_autosuggest do
       query.save      
     end
 
-    # spree pages extension?
+    # remove all deleted suggestions
+    Spree::Product.deleted.each do |product|
+    	query = Spree::Suggestion.find_or_initialize_by_keywords(product.name)
+    	query.destroy if query
+    end
+
+    # remove all non_available suggestions
+    Spree::Product.non_available.each do |product|
+    	query = Spree::Suggestion.find_or_initialize_by_keywords(product.name)
+    	query.destroy if query
+    end
   end
 end
