@@ -20,17 +20,23 @@ namespace :spree_autosuggest do
       query.data = {:url => "/products/#{product.permalink}"}.to_s
       query.save      
     end
-
-    # remove all deleted suggestions
-    Spree::Product.deleted.each do |product|
-    	query = Spree::Suggestion.find_or_initialize_by_keywords(product.name)
-    	query.destroy if query
-    end
-
-    # remove all non_available suggestions
-    Spree::Product.non_available.each do |product|
-    	query = Spree::Suggestion.find_or_initialize_by_keywords(product.name)
-    	query.destroy if query
+    
+    require 'net/http'
+    require 'uri'
+    
+    Spree::Suggestion.all.each do |s|
+    	if !s.data.blank? && eval(s.data).has_key?(:url)
+    		url = URI.parse("http://" + Spree::Config[:site_url] + eval(s.data)[:url])
+    		full_path = (url.query.blank?) ? url.path : "#{url.path}?#{url.query}"
+    		puts url
+    		req = Net::HTTP::Get.new(full_path)
+    		
+				res = Net::HTTP.start(url.host, url.port) {|http|
+					http.request(req)
+				}
+				puts res.code
+				s.destroy if res.code != "200"    		
+    	end
     end
   end
 end
