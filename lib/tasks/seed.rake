@@ -35,7 +35,7 @@ namespace :spree_autosuggest do
 					http.request(req)
 				}
 				puts res.code
-				s.destroy if res.code != "200"    		
+				s.destroy if res.code != "200"
     	end
     end
   end
