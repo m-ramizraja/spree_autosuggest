@@ -30,15 +30,15 @@
 <% end %>
 </table>
 
-<%= paginate @suggestions %> 
+<%= paginate @suggestions %>
 
 <% content_for :sidebar do %>
   <div class="box" data-hook="admin_suggestions_index_search">
     <h3><%= t(:search) %></h3>
-    <%= form_for [:admin, @search] do |f| %>
+    <%= search_form_for @search do |f| %>
       <p>
         Keywords<br />
-        <%= f.text_field :keywords_contains, :size =>18 %>
+        <%= f.text_field :keywords_cont, :size =>18 %>
       </p>
       <div data-hook="admin_suggestions_index_search_buttons">
         <p><%= button t(:search) %></p>
