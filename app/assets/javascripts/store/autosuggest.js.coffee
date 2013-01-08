@@ -6,7 +6,6 @@ class @Autosuggest
     @settings =
       from_db: 45
       to_display: 5
-      keyswitch: true
     @settings = $.extend @settings, options
 
     @cache = {}
@@ -50,37 +49,9 @@ class @Autosuggest
       matcher = new RegExp("\\b" + $.ui.autocomplete.escapeRegex(term), "i")
       $.grep array, (value) =>
         source = value.keywords or value.value or value
-				
         return true if matcher.test(source)
-        if @settings.keyswitch
-          matcher.test(@keyswitch(source))
 
   extension_methods: ->
     _renderItem: (ul, item) ->
-        if item.url is ""
-        	item.url = '/products?utf8=✓&keywords='+item.keywords
-        	
-        item.keywords = item.keywords.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "gi"), "<strong>$1</strong>")
-        
-        $("<li></li>").data("item.autocomplete", item).append("<a href=" + item.url + ">" + item.keywords + "</a>").appendTo ul
-
-  keyswitch: (str) ->
-    ru = "йцукенгшщзхъфывапролджэячсмитьбюёЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ"
-    en = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>~"
-
-    if ru.indexOf(str.match("[^Wd_]")) is -1
-      from = en
-      to = ru
-    else
-      from = ru
-      to = en
-
-    switched = ""
-    for char in str
-      fromIndex = from.indexOf(char)
-      if fromIndex < 0
-        switched += char
-      else
-        switched += to[fromIndex]
-
-    switched
+        item.label = item.label.replace(new RegExp("(" + $.ui.autocomplete.escapeRegex(@term) + ")", "gi"), "<strong>$1</strong>")
+        $("<li></li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo ul
