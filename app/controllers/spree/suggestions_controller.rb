@@ -1,16 +1,19 @@
 class Spree::SuggestionsController < Spree::BaseController
+  # http://stackoverflow.com/questions/1988658/rails-action-caching-with-querystring-parameters
+  caches_action :index, :cache_path => Proc.new {|c| c.request.url }
 
   def index
-    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
-    suggestions = Spree::Suggestion.relevant(params['term'])
+    if Spree::Autosuggest::Config[:search_backend]
+      suggestions = Spree::Config.searcher_class.new(keywords: params['term']).retrieve_products.map(&:name)
+      suggestions = Spree::Product.search(:name_cont => params['term']).result(:distinct => true).map(&:name) if suggestions.blank?
+    else
+      suggestions = Spree::Suggestion.relevant(params['term']).map(&:keywords)
+    end
 
     if request.xhr?
-      render :json => suggestions.collect{|s| {:keywords => s.keywords, :url => !s.data.blank? && eval(s.data).has_key?(:url) ? eval(s.data)[:url] : ""}}
+      render :json => suggestions
     else
       render_404
     end
   end
-
 end
