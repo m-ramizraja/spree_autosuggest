@@ -28,10 +28,10 @@ module Spree
         return @collection if @collection.present?
 
         unless request.xhr?
-          @search = Suggestion.search(params[:search])
+          @search = Suggestion.search(params[:q])
           @collection = @search.result.page(params[:page]).order("spree_suggestions.id desc")
         else
-          @collection = Suggestion.where("suggestions.name #{LIKE} :search",
+          @collection = Suggestion.where("LOWER(suggestions.name) #{LIKE} LOWER(:search)",
                                    {:search => "#{params[:q].strip}%"}).limit(params[:limit] || 100).order("spree_suggestions.id desc")
         end
 

@@ -35,7 +35,7 @@
 <% content_for :sidebar do %>
   <div class="box" data-hook="admin_suggestions_index_search">
     <h3><%= t(:search) %></h3>
-    <%= search_form_for @search do |f| %>
+    <%= search_form_for @search, url: admin_suggestions_path do |f| %>
       <p>
         Keywords<br />
         <%= f.text_field :keywords_cont, :size =>18 %>
