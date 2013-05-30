@@ -1,0 +1,13 @@
+---
+sv:
+  spree:
+    auto_suggest:
+      total: "Totalt:"
+      listing_suggestions: List förslag
+      id: ID
+      keywords: Referensord
+      count: Antal
+      items_found: Objekt hittades
+      data: Data
+      created_at: Skapad
+      updated_at: Uppdaterad

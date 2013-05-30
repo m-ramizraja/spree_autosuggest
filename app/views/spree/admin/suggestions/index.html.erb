@@ -1,19 +1,19 @@
 <div class="toolbar" data-hook="toolbar">
-  Total: <%= @suggestions.total_count %>
+  <%= "#{Spree.t('auto_suggest.total')} #{@suggestions.total_count}" %>
 </div>
 
-<h1>Listing Suggestions</h1>
+<h1><%= Spree.t('auto_suggest.listing_suggestions') %></h1>
 
 <table class="index" id="listing_suggestions">
   <tr>
-    <th>ID</th>
-    <th>Keywords</th>
-    <th>Count</th>
-    <th>Items Found</th>
-    <th>Data</th>
-    <th>Created at</th>
-    <th>Updated at</th>
-    <th>Action</th>
+    <th><%= Spree.t('auto_suggest.id') %></th>
+    <th><%= Spree.t('auto_suggest.keywords') %></th>
+    <th><%= Spree.t('auto_suggest.count') %></th>
+    <th><%= Spree.t('auto_suggest.items_found') %></th>
+    <th><%= Spree.t('auto_suggest.data') %></th>
+    <th><%= Spree.t('auto_suggest.created_at') %></th>
+    <th><%= Spree.t('auto_suggest.updated_at') %></th>
+    <th><%= Spree.t(:action) %></th>
   </tr>
 
 <% @suggestions.each do |suggestion| %>
@@ -25,7 +25,7 @@
     <td><%= suggestion.data %></td>
     <td><%= suggestion.created_at %></td>
     <td><%= suggestion.updated_at %></td>
-    <td><%= link_to 'Destroy', admin_suggestion_path(suggestion), confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to Spree.t(:destroy), admin_suggestion_path(suggestion), confirm: Spree.t(:are_you_sure_delete), method: :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -34,14 +34,14 @@
 
 <% content_for :sidebar do %>
   <div class="box" data-hook="admin_suggestions_index_search">
-    <h3><%= t(:search) %></h3>
+    <h3><%= Spree.t(:search) %></h3>
     <%= search_form_for @search, url: admin_suggestions_path do |f| %>
       <p>
-        Keywords<br />
-        <%= f.text_field :keywords_cont, :size =>18 %>
+        <%= Spree.t('auto_suggest.keywords') %>:<br />
+        <%= f.text_field :keywords_cont, size: 18 %>
       </p>
       <div data-hook="admin_suggestions_index_search_buttons">
-        <p><%= button t(:search) %></p>
+        <p><%= button Spree.t(:search) %></p>
       </div>
     <% end %>
   </div>
