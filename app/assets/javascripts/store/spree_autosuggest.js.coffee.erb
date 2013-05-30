@@ -2,7 +2,7 @@
 //= require store/spree_core
 
 $ ->
-  suggestOn = '<%= Spree::Autosuggest::Config.field %>'
+  suggestOn = "<%= Spree::Autosuggest::Config.field %>"
 
   $("input[name=#{suggestOn}]:not(.ui-autocomplete-input)").on "focus", ->
     new Autosuggest(this,

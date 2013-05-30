@@ -5,13 +5,11 @@ module Spree
 
       def index
         respond_with(@collection) do |format|
-          format.html # index.html.erb
+          format.html
           format.json { render json: @suggestions }
         end
       end
 
-      # DELETE /retailers/1
-      # DELETE /retailers/1.json
       def destroy
         @suggestion = Suggestion.find(params[:id])
         @suggestion.destroy
@@ -22,7 +20,7 @@ module Spree
         end
       end
 
-      private
+    private
 
     	def collection
         return @collection if @collection.present?
@@ -32,11 +30,9 @@ module Spree
           @collection = @search.result.page(params[:page]).order("spree_suggestions.id desc")
         else
           @collection = Suggestion.where("LOWER(suggestions.name) #{LIKE} LOWER(:search)",
-                                   {:search => "#{params[:q].strip}%"}).limit(params[:limit] || 100).order("spree_suggestions.id desc")
+                                   {search: "#{params[:q].strip}%"}).limit(params[:limit] || 100).order("spree_suggestions.id desc")
         end
-
       end
-
     end
   end
 end

@@ -18,17 +18,15 @@ class @Autosuggest
       select: (event, ui) =>
         location.href = ui.item.url
       )
-      #.bind "keydown.autocomplete", (event) =>
-      #  @fire_keybinds(event)
 
   # TODO: rewrite
   fire_keybinds: (event) ->
     if event.keyCode == $.ui.keyCode.RIGHT
-      elem = $(@search_field.data('autocomplete').menu.active).find('a')
+      elem = $(@search_field.data("autocomplete").menu.active).find("a")
       if elem.length > 0
-        elem.trigger('click')
+        elem.trigger("click")
       else
-        $('li.ui-menu-item:first a').trigger('mouseenter').trigger('click')
+        $("li.ui-menu-item:first a").trigger("mouseenter").trigger("click")
 
   finder: (request, response) ->
     term = request.term.toLowerCase()

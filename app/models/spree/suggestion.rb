@@ -1,5 +1,5 @@
 class Spree::Suggestion < ActiveRecord::Base
-  validates :keywords, :presence => true
+  validates :keywords, presence: true
 
   scope :has_data, where(["data is not ?", nil])
 
