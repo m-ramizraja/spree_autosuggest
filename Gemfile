@@ -15,6 +15,7 @@ group :test do
 end
 
 gem 'spree_core',     github: 'spree/spree'
+gem 'spree_frontend', github: 'spree/spree'
 gem 'spree_backend',  github: 'spree/spree'
 gem 'spree_api',      github: 'spree/spree'
 
