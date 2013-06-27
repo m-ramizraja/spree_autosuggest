@@ -1,7 +1,7 @@
 namespace :spree_autosuggest do
   task seed: :environment do
     # all taxons with more than two words
-    Spree::Taxon.find(:all, conditions: ["parent_id is not ? and parent_id <> ?", nil, 1]).each do |taxon|
+    Spree::Taxon.find(:all, conditions: ["parent_id IS NOT ? AND parent_id <> ?", nil, 1]).each do |taxon|
       searcher = Spree::Config.searcher_class.new({:taxon => taxon.id})
       query = Spree::Suggestion.find_or_initialize_by_keywords(taxon.name)
       query.keywords = taxon.name # keep the case of keywords same with current
@@ -35,7 +35,7 @@ namespace :spree_autosuggest do
 					http.request(req)
 				}
 				puts res.code
-				s.destroy if res.code != "200"
+				s.destroy if res.code != '200'
     	end
     end
   end
