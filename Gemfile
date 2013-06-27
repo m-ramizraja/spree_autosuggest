@@ -7,6 +7,7 @@ group :test do
   gem 'factory_girl'
   gem 'ffaker'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'sqlite3'
   gem 'database_cleaner'
@@ -18,5 +19,7 @@ group :test do
 end
 
 gem 'spree', github: 'spree/spree'
+# provides basic authentication functionality for testing parts of your engine
+gem 'spree_auth_devise', github: 'spree/spree_auth_devise'
 
 gemspec

@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl', '~> 4.2'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails', '~> 2.13'
+  s.add_development_dependency 'shoulda-matchers', '~> 2.0'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3', '~> 1.3.7'
   s.add_development_dependency 'database_cleaner'
