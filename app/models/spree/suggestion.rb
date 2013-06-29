@@ -1,7 +1,7 @@
 class Spree::Suggestion < ActiveRecord::Base
   validates :keywords, presence: true
 
-  scope :has_data, where(["data is not ?", nil])
+  scope :has_data, -> { where ["data is not ?", nil] }
 
   def self.relevant(term)
     config = Spree::Autosuggest::Config
