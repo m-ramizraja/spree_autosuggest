@@ -8,9 +8,20 @@ This extension adds suggestions for product search.
 
 ## Installation
 
-1. Add to Gemfile: `gem 'spree_autosuggest', github: 'futhr/spree_autosuggest'`
-2. Run `rails g spree_autosuggest:install`
-3. Run `rake spree_autosuggest:seed` to add all Taxon & Product names to the autosuggest database
+Add to your app `Gemfile`:
+```ruby
+gem 'spree_autosuggest', github: 'futhr/spree_autosuggest'
+```
+
+Run
+
+    rails g spree_autosuggest:install
+
+Run
+
+    rake spree_autosuggest:seed
+
+to add all Taxon & Product names to the autosuggest database.
 
 ## Contributing
 
@@ -21,6 +32,7 @@ Here are some ways *you* can contribute:
 * by using prerelease versions
 * by reporting [bugs][2]
 * by suggesting new features
+* by writing [translations][4]
 * by writing or editing documentation
 * by writing specifications
 * by writing code (*no patch is too small*: fix typos, add comments, clean up inconsistent whitespace)
@@ -34,7 +46,7 @@ Starting point:
 * Clone your repo
 * Run `bundle install`
 * Run `bundle exec rake test_app` to create the test application in `spec/test_app`
-* Make your changes and follow this [Style Guide](https://github.com/thoughtbot/guides)
+* Make your changes and follow this [Style Guide][5]
 * Ensure specs pass by running `bundle exec rspec spec`
 * Submit your pull request
 
@@ -43,3 +55,5 @@ Copyright (c) 2013 Aleksey Demidov, released under the [New BSD License][3]
 [1]: http://www.fsf.org/licensing/essays/free-sw.html
 [2]: https://github.com/futhr/spree_autosuggest/issues
 [3]: https://github.com/futhr/spree_autosuggest/tree/master/LICENSE
+[4]: http://www.localeapp.com/projects/4933
+[5]: https://github.com/thoughtbot/guides
