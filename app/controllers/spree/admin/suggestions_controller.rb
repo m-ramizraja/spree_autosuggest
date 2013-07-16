@@ -1,6 +1,6 @@
 module Spree
   module Admin
-    class SuggestionsController < Spree::Admin::ResourceController
+    class SuggestionsController < ResourceController
       respond_to :html
 
       def index
