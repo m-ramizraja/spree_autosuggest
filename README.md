@@ -16,9 +16,6 @@ gem 'spree_autosuggest', github: 'futhr/spree_autosuggest'
 Run
 
     rails g spree_autosuggest:install
-
-Run
-
     rake spree_autosuggest:seed
 
 to add all Taxon & Product names to the autosuggest database.
@@ -54,6 +51,6 @@ Copyright (c) 2013 Aleksey Demidov, released under the [New BSD License][3]
 
 [1]: http://www.fsf.org/licensing/essays/free-sw.html
 [2]: https://github.com/futhr/spree_autosuggest/issues
-[3]: https://github.com/futhr/spree_autosuggest/tree/master/LICENSE
+[3]: https://github.com/futhr/spree_autosuggest/tree/master/LICENSE.md
 [4]: http://www.localeapp.com/projects/4933
 [5]: https://github.com/thoughtbot/guides
