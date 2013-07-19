@@ -4,7 +4,7 @@ module SpreeAutosuggest
       class_option :auto_run_migrations, type: :boolean, default: false
 
       def add_javascripts
-        #append_file 'app/assets/javascripts/store/all.js', "//= require store/spree_autosuggest\n"
+        append_file 'app/assets/javascripts/store/all.js', "//= require store/spree_autosuggest\n"
       end
 
       def add_migrations

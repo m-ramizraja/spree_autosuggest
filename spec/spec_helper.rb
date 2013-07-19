@@ -21,6 +21,8 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/webkit'
+require 'shoulda-matchers'
+require 'i18n-spec'
 require 'ffaker'
 require 'database_cleaner'
 
@@ -30,30 +32,34 @@ require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/authorization_helpers'
+require 'spree/testing_support/capybara_ext'
+require 'spree/testing_support/bar_ability'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Spree::TestingSupport::UrlHelpers
   config.include Spree::TestingSupport::ControllerRequests
-  config.include Capybara::DSL, type: :request
+  config.include SuggestionHelpers
 
   config.extend Spree::TestingSupport::AuthorizationHelpers::Request, type: :feature
 
   config.mock_with :rspec
   config.use_transactional_fixtures = false
-  config.fail_fast = ENV['FAIL_FAST'] || false
 
   config.before do
-    if example.metadata[:js]
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-    end
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
   end
 
   config.after do
     DatabaseCleaner.clean
+  end
+
+  # Ramiz : Capybara::Webkit::InvalidResponseError:
+  # SYNTAX_ERR: DOM Exception 12
+  # Following method fix this error.
+  Capybara.add_selector(:row) do
+    xpath { |num| ".//tbody/tr[#{num}]" }
   end
 
   Capybara.javascript_driver = :webkit
